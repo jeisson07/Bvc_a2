@@ -1,0 +1,30 @@
+version: '3.7'
+services:
+  mysql:
+    build:
+      context: .
+      dockerfile: dockerfile
+    container_name: mysql
+    restart: always
+    port:
+    - 23306:3306
+    environment:
+      MYSQL_ROOT_PASSWORD: "bvc"
+      MYSQL_DATABASE : "db_a2censo"
+      MYSQL_USER : "user_db" 
+      MYSQL_PASSWORD : "userpwd"
+
+    volumes:
+      - ./schemas:/var/lib/mysql:rw
+    networks:
+      mysql_networks:
+        aliases:
+          -mysql_host
+
+  volumes:
+    schemas :{}
+  networks:
+    mysql_network:
+      name: mysql_net  
+      driver: bridge
+
